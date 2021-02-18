@@ -1,5 +1,5 @@
-
 import firebase from "firebase/app";
+import "firebase/auth";
 
 const devConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -11,8 +11,18 @@ const devConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID,
   };
 
-const prodConfig = {}
+const prodConfig = {};
 
 const config = process.env.NODE_ENV === "development" ? devConfig : prodConfig;
+console.log("config", config);
 
-firebase.initializeApp(config);
+class Firebase {
+  constructor(){
+      firebase.initializeApp(config);
+      console.log('firebase', firebase);
+      this.firebaseAuth = firebase.auth();
+      console.log("this.firebaseAuth", this.firebaseAuth);
+  }
+}
+
+export default new Firebase();
